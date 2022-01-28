@@ -164,7 +164,9 @@ And here is some of the code I wrote
 
 ---
 Tower Defense 
+
 Private project I used to work on
+
 I used breadth-first search for enemies to find the shortest path
 
 ![TD ss](https://user-images.githubusercontent.com/58221747/151551528-093e40ed-df24-41d8-92dc-4282344ff932.png)
@@ -218,6 +220,7 @@ And small dose of code
 
 ---
 Crazy Metal Fighters - Tour based mobile fighter 
+
 It was university project, we were working in 5 man team
 
 ![CMF ss](https://user-images.githubusercontent.com/58221747/151396626-77a02ecd-5e10-4de0-8a5b-172ba0cbf614.jpg)
