@@ -7,8 +7,9 @@
 
       Twitter: https://twitter.com/znajkiewicz
 
-Here are some of my code and projects:
+Here are some snippets of my code and projects:
 
+---
 Custom gravity script
 
 	static List<GravitySource> sources = new List<GravitySource>();
@@ -65,6 +66,7 @@ this script is used in my training project where I made smooth advanced movement
 
 ![Gravity ss](https://user-images.githubusercontent.com/58221747/151397500-ac6d97b9-ed98-42df-a5b6-85b6bd70bdd9.png)
 
+---
 Geometrics in Unity, it is project I had most fun working on
 
 ![torus](https://user-images.githubusercontent.com/58221747/151397817-b563d1fa-b682-41b5-923e-ee1de07ae68a.jpg)
@@ -75,6 +77,7 @@ And some scripts for it
 ![Torus script](https://user-images.githubusercontent.com/58221747/151397982-2a0e6195-9454-4e9a-9fd3-ade8f2694192.png)
 ![Update funcion](https://user-images.githubusercontent.com/58221747/151398028-76631a63-68d2-4dc0-aa79-8416403d65a0.png)
 
+-----------------------------------------------------------------
 I was working on fields cultivation in a bigger project called LinearVillager
 
 ![FieldsCult ss](https://user-images.githubusercontent.com/58221747/151426562-5208050b-aac9-4fc1-8fae-cba4a560fb4e.png)
@@ -159,7 +162,61 @@ And here is some of the code I wrote
             UpdateVisualization(data);
         }
 
+---
+Tower Defense 
+Private project I used to work on
+I used breadth-first search for enemies to find the shortest path
 
+![TD ss](https://user-images.githubusercontent.com/58221747/151551528-093e40ed-df24-41d8-92dc-4282344ff932.png)
+
+And small dose of code
+
+	public EnemyFactory OriginFactory
+	{
+		get => originFactory;
+		set
+		{
+			Debug.Assert(originFactory == null, "Redefined origin factory!");
+			originFactory = value;
+		}
+	}
+
+	public bool GameUpdate()
+	{
+		progress += Time.deltaTime * progressFactor;
+
+		while(progress >= 1f)
+		{
+			if(tileTo == null)
+			{
+				OriginFactory.Reclaim(this);
+
+				return false;
+			}
+			progress = (progress - 1f) / progressFactor;
+			PrepareNextStage();
+			progress *= progressFactor;
+		}
+
+		if(directionChange == DirectionChange.None)
+		{
+			transform.localPosition = Vector3.LerpUnclamped(positionFrom, positionTo, progress);	
+		}
+		else
+		{
+			float angle = Mathf.LerpUnclamped(directionAngleFrom, directionAngleTo, progress);
+			transform.localRotation = Quaternion.Euler(0f, angle, 0f);
+		}
+		return true;
+	}
+	
+	public void Initialize(float scale)
+	{
+		model.localScale = new Vector3(scale, scale, scale);
+	}
+	
+
+---
 Crazy Metal Fighters - Tour based mobile fighter 
 It was university project, we were working in 5 man team
 
