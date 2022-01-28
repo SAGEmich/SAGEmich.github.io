@@ -2,14 +2,64 @@
 - 👀 I’m interested in Gameplay programing, algorithms and sports 
 - 🌱 I’m currently working on Survival game
 - 📫 How to reach me:
-Instagram: https://www.instagram.com/ej_lolo/
-Twitter: https://twitter.com/znajkiewicz
+
+      Instagram: https://www.instagram.com/ej_lolo/
+
+      Twitter: https://twitter.com/znajkiewicz
 
 Here are some of my code and projects:
 
 Custom gravity script
 
-![CustomGravity script](https://user-images.githubusercontent.com/58221747/151397432-c932c8df-56a9-4a8f-aea9-ec62bc41b64f.png)
+	static List<GravitySource> sources = new List<GravitySource>();
+	
+	public static Vector3 GetGravity(Vector3 position)
+	{
+		Vector3 g = Vector3.zero;
+
+		for(int i = 0; i < sources.Count; i++)
+		{
+			g += sources[i].GetGravity(position);
+		}
+
+		return g;
+	}
+	
+	public static Vector3 GetGravity(Vector3 position, out Vector3 upAxis)
+	{
+		Vector3 g = Vector3.zero;
+
+		for(int i = 0; i < sources.Count; i++)
+		{
+			g += sources[i].GetGravity(position);
+		}
+		upAxis = -g.normalized;
+		return g;
+	}
+
+	public static Vector3 GetUpAxis(Vector3 position)
+	{
+		Vector3 g = Vector3.zero;
+
+		for(int i = 0; i < sources.Count; i++)
+		{
+			g += sources[i].GetGravity(position);
+		}
+
+		return -g.normalized;
+	}
+
+	public static void Register(GravitySource source)
+	{
+		Debug.Assert(!sources.Contains(source), "Duplicate registration of gravity source!", source);
+		sources.Add(source);
+	}
+
+	public static void Unregister(GravitySource source)
+	{
+		Debug.Assert(!sources.Contains(source), "Unregistration of unknown gravity source!", source);
+		sources.Remove(source);
+	}
 
 this script is used in my training project where I made smooth advanced movement
 
@@ -31,7 +81,83 @@ I was working on fields cultivation in a bigger project called LinearVillager
 
 And here is some of the code I wrote
 
-![FieldLocationElement](https://user-images.githubusercontent.com/58221747/151426615-94048832-1ebe-48ea-a508-851a2506f387.png)
+        [SerializeField]
+        private GameObject notPreparedPhase;
+        [SerializeField]
+        private GameObject readyToSeedPhase;
+        [SerializeField]
+        private GameObject[] grainPlantPhases;
+
+
+        public override void UpdateVisualization(BaseLocationElementData databaseData)
+        {
+            base.UpdateVisualization(databaseData);
+
+            notPreparedPhase.gameObject.SetActive(false);
+            readyToSeedPhase.gameObject.SetActive(false);
+
+            foreach(GameObject phase in grainPlantPhases)
+            {
+                phase.SetActive(false);
+            }
+
+            if(data.growthPhase == FieldGrowthPhase.NotPrepared)
+            {
+                notPreparedPhase.SetActive(true);
+            }
+            else if(data.growthPhase == FieldGrowthPhase.ReadyToSeed)
+            {
+                readyToSeedPhase.SetActive(true);
+            }
+            else
+            {
+                if(data.SeedItemConfigData.plantType == PlantType.Grain)
+                {
+                    grainPlantPhases[data.growthProgress].SetActive(true);
+                }
+            }
+
+            //IS THIS REALLY OK??? - TO CHECK IT ONE DAY FOR POSSIBLE MEMORY LEAK???
+            GameController.Instance.timeTickEvent -= OnTickEvent;
+            GameController.Instance.timeTickEvent += OnTickEvent;
+        }
+
+        public override void InvokeInteraction(BaseCharacterController controller)
+        {
+            var characterController = controller as BaseHumanoidCharacterController;
+            if(characterController == null)
+            {
+                return;
+            }
+
+            if(data.growthPhase == FieldGrowthPhase.NotPrepared && characterController.FirstHandWeaponConfig != null && characterController.FirstHandWeaponConfig.canPlowField)
+            {
+                characterController.Action_FieldPrepare();
+                data.growthPhase = FieldGrowthPhase.ReadyToSeed;
+            }
+
+            if(data.growthPhase == FieldGrowthPhase.ReadyToSeed && characterController.FirstHandSeedConfig != null &&
+               characterController.FirstHandSeedConfig.plantType != PlantType.None)
+            {
+                data.growthPhase = FieldGrowthPhase.Seeded;
+                data.seedItemId = characterController.FirstHandSeedConfig.id;
+
+                data.growthProgress = 0;
+                data.phaseChangeTime = GameController.Instance.CurrentDate + BalanceConfig.Current.FieldPhaseGrowthTimeMinutes();
+
+                characterController.Action_FieldSeeded(characterController.FirstHandSeedConfig.id);
+            }
+
+            if(data.growthPhase == FieldGrowthPhase.Harvest && characterController.FirstHandWeaponConfig != null && characterController.FirstHandWeaponConfig.canHarvestField)
+            {
+                characterController.Action_FieldHarvested(data.SeedItemConfigData);
+
+                data.seedItemId = null;
+                data.growthPhase = FieldGrowthPhase.NotPrepared;
+            }
+
+            UpdateVisualization(data);
+        }
 
 
 Crazy Metal Fighters - Tour based mobile fighter 
@@ -41,4 +167,35 @@ It was university project, we were working in 5 man team
 
 Script used for rotating robot model in garage 
 
-![image](https://user-images.githubusercontent.com/58221747/151428116-be1ab54e-c4e5-4950-9599-39a6301a82bb.png)
+    [SerializeField] private float _rotSpeed = 10000f;
+    private bool _dragging = false;
+    Rigidbody rb;
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void OnMouseDrag()
+    {
+        _dragging = true;
+    }
+
+    void Update()
+    {
+      if(Input.GetMouseButtonUp(0))
+        {
+            _dragging = false;
+        }
+       
+    }
+
+    private void FixedUpdate()
+    {
+        if(_dragging)
+        {
+            float x = Input.GetAxis("Mouse X") * _rotSpeed * Time.fixedDeltaTime;
+          
+            rb.AddTorque(Vector3.down * x);
+        }
+    }
+
