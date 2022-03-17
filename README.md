@@ -1,6 +1,11 @@
-- 👋 Hi, I’m @SAGEmich
+- 👋 Hi, I’m Michał Znajkiewicz
 - 👀 I’m interested in Gameplay programing, algorithms and sports 
-- 🌱 I’m currently working on Survival game
+- 🌱 I’m currently working on Survival game as programmer, team leader and producer
+- Hey! I am young game developer. I started my career in 2019, but my biggest breakthrough was at the end of 2020. That's when I started working on a great project with a lot of great people. I believe that my dream of working in the gaming industry will soon come true, and until then I have to work hard and constantly develop.
+
+​
+
+If you would like to talk to me, please feel free to send me a message on my social media. I am happy to answer any questions and exchange opinions.
 - 📫 How to reach me:
 
       Instagram: https://www.instagram.com/ej_lolo/
@@ -77,7 +82,7 @@ And some scripts for it
 ![Torus script](https://user-images.githubusercontent.com/58221747/151397982-2a0e6195-9454-4e9a-9fd3-ade8f2694192.png)
 ![Update funcion](https://user-images.githubusercontent.com/58221747/151398028-76631a63-68d2-4dc0-aa79-8416403d65a0.png)
 
------------------------------------------------------------------
+---
 I was working on fields cultivation in a bigger project called LinearVillager
 
 ![FieldsCult ss](https://user-images.githubusercontent.com/58221747/151426562-5208050b-aac9-4fc1-8fae-cba4a560fb4e.png)
