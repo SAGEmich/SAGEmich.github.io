@@ -6,9 +6,9 @@
 
 - 📫 If you would like to talk to me, please feel free to send me a message on my social media. I am happy to answer any questions and exchange opinions.
 
-      Instagram: https://www.instagram.com/ej_lolo/
-
       Twitter: https://twitter.com/znajkiewicz
+
+      Instagram: https://www.instagram.com/ej_lolo/
 
 Here are some snippets of my code and projects:
 
