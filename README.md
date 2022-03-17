@@ -1,7 +1,12 @@
 - 👋 Hi, I’m Michał Znajkiewicz. I am young game developer. I started my career in 2019, but my biggest breakthrough was at the end of 2020. That's when I started 	working on a great project with a lot of great people. I believe that my dream of working in the gaming industry will soon come true, and until then I have to 	     	work hard and constantly develop.
+
 - 👀 I’m interested in Gameplay programing, algorithms and sports 
+
 - 🌱 I’m currently working on Survival game as programmer, team leader and producer
+
 - 💎 All of my repositories are public.
+
+- 📢 There is a link for my GitLab profile and all the repositories: https://gitlab.com/SAGEmich
 ​
 
 - 📫 If you would like to talk to me, please feel free to send me a message on my social media. I am happy to answer any questions and exchange opinions.
